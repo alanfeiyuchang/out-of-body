@@ -1,0 +1,8 @@
+// 公开仓库里的默认设置。
+// 自己的签名、包名、服务器地址写在 Config/Local.xcconfig（不进 git），照着 Local.example.xcconfig 抄一份改。
+PRODUCT_BUNDLE_IDENTIFIER = com.example.outofbody
+DEVELOPMENT_TEAM =
+// 画「生成」画面的那台电脑的地址，逗号隔开，依次尝试；没写端口的用 8765。留空 = 不连服务器。
+PREDICT_HOSTS =
+
+#include? "Local.xcconfig"

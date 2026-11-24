@@ -1,0 +1,11 @@
+OutOfBody.xcodeproj
+build/
+shots/
+.DS_Store
+Models/
+rec/
+data/
+assets/optimus3/source/
+assets/optimus3/textures/
+Config/Local.xcconfig
+tools/env.local.sh

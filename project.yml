@@ -1,0 +1,54 @@
+name: OutOfBody
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "18.0"
+  developmentLanguage: zh-Hans
+
+# 工程文件由 `xcodegen generate` 从这里生成，OutOfBody.xcodeproj 不进 git。
+# 要改设置就改这个文件，别在 Xcode 里改。
+
+settings:
+  base:
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1"
+    CURRENT_PROJECT_VERSION: "1"
+    # 每帧要在 CPU 上扫一遍所有 splat，Debug 不开优化会慢十倍。
+    SWIFT_OPTIMIZATION_LEVEL: "-O"
+
+targets:
+  OutOfBody:
+    type: application
+    platform: iOS
+    # 包名、签名、服务器地址在这两个文件里：公开的默认值 + 自己的（Config/Local.xcconfig，不进 git）。
+    configFiles:
+      Debug: Config/Base.xcconfig
+      Release: Config/Base.xcconfig
+    info:
+      path: OutOfBody/Info.plist
+      properties:
+        # 预测服务跑在局域网的另一台电脑上，走明文 http，地址是 IP（局域网或 Tailscale）。
+        # 不能再加 NSAllowsLocalNetworking：有它在，NSAllowsArbitraryLoads 会被系统忽略，
+        # 而 Tailscale 的 100.x 地址不算局域网，会被拦。原型阶段先全放开，上架前要收紧。
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        NSLocalNetworkUsageDescription: 连接局域网里的电脑，让它预测还没扫到的环境。
+        # 服务器地址从 Config/*.xcconfig 的 PREDICT_HOSTS 带进来，代码里读这个键。
+        PredictHosts: $(PREDICT_HOSTS)
+    sources:
+      - path: OutOfBody
+      # 单目深度模型（约 50 MB，不进 git，用 tools/fetch_model.sh 下载）。
+      # 没有这个目录也能编，app 会退回稀疏特征点。
+      - path: Models
+        optional: true
+    settings:
+      base:
+        PRODUCT_NAME: OutOfBody
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+        INFOPLIST_KEY_CFBundleDisplayName: Out of Body
+        INFOPLIST_KEY_NSCameraUsageDescription: 用相机画面和深度重建你周围的环境。
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"

@@ -1,0 +1,5 @@
+// 抄成 Config/Local.xcconfig 再改。这个文件不进 git。
+PRODUCT_BUNDLE_IDENTIFIER = com.yourname.outofbody
+DEVELOPMENT_TEAM = ABCDE12345
+// 例：局域网地址, 经另一台电脑中转的地址:端口, Tailscale 地址
+PREDICT_HOSTS = 192.168.1.50, 192.168.1.20:8766
