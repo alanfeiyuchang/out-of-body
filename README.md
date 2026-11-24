@@ -6,11 +6,7 @@ You hold the phone and look at the screen. The screen shows you from behind, as 
 where you stand, in a 3D reconstruction of the place you are in. Drag to orbit the camera around
 yourself.
 
-<p align="center">
-  <img src="docs/demo.jpg" width="420" alt="Holding a phone that shows a robot avatar standing in a reconstruction of the yard, seen from behind">
-</p>
-
-<!-- demo video goes here: drag the .mp4 into the GitHub web editor and paste the link it gives you -->
+https://github.com/user-attachments/assets/5d9a72f2-0895-49da-bfd7-953828707cdd
 
 This is a personal experiment, inspired by the "reality view" visualisations in driver-assistance
 systems. It is not affiliated with Tesla or any other company.
